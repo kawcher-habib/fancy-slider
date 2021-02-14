@@ -4,6 +4,7 @@ const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
+
 // selected image 
 let sliders = [];
 
@@ -79,39 +80,39 @@ const createSlider = () => {
     alt="">`;
     sliderContainer.appendChild(item);
 
-  })
+  });
   changeSlide(0)
   timer = setInterval(function () {
     slideIndex++;
     changeSlide(slideIndex);
   }, duration);
-}
+};
 
 // change slider index 
 const changeItem = index => {
   changeSlide(slideIndex += index);
-}
+};
 
 // change slide item
 const changeSlide = (index) => {
 
   const items = document.querySelectorAll('.slider-item');
   if (index < 0) {
-    slideIndex = items.length - 1
+    slideIndex = items.length - 1;
     index = slideIndex;
   };
 
   if (index >= items.length) {
     index = 0;
     slideIndex = 0;
-  }
+  };
 
   items.forEach(item => {
-    item.style.display = "none"
-  })
+    item.style.display = "none";
+  });
 
-  items[index].style.display = "block"
-}
+  items[index].style.display = "block";
+};
 
 // Event Listener (click)
 searchBtn.addEventListener('click', function () {
@@ -126,31 +127,23 @@ searchBtn.addEventListener('click', function () {
     sliders.length = 0;
     search.value = '';
   }
-})
-
-// Event Listener (keypress)
-search.addEventListener("keypress", function (event) {
-  const search = document.getElementById('search').value;
-    if (event.key == 'Enter') {
-      document.querySelector('.main').style.display = 'none';
-      clearInterval(timer);
-      getImages(search)
-      sliders.length = 0;
-      search.value = '';
-    }
-   
-
 });
 
-//// Event Listener for duration
+// Event Listener (keypress)
+document.getElementById('search').addEventListener('keypress', function (e) {
+  if (e.key == 'Enter') {
+    document.getElementById('search-btn').click();
+  };
+});
+
+// Event Listener for duration
 sliderBtn.addEventListener('click', function () {
   const duration = document.getElementById('duration').value || 1000;
   if (duration < 0) {
-    alert('Your Duration value negative');
+    alert('Your Duration value is negative');
 
   } else {
     createSlider();
-
   }
 
 })
@@ -166,5 +159,5 @@ const loadingToggle = (show) => {
     loadingSpinner.classList.add('d-none');
   }
 
-}
+};
 
