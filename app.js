@@ -24,11 +24,13 @@ const showImages = (images) => {
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
+    loadingToggle(false);
   })
 
 }
-
+//Api area
 const getImages = (query) => {
+  loadingToggle(true);
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
@@ -44,9 +46,7 @@ const selectItem = (event, img) => {
   if (item === -1) {
     sliders.push(img);
   } else {
-
     sliders.pop(img);
-
   }
 }
 var timer
@@ -70,13 +70,15 @@ const createSlider = () => {
   // hide image aria
   imagesArea.style.display = 'none';
   const duration = document.getElementById('duration').value || 1000;
+
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";
     item.innerHTML = `<img class="w-100"
     src="${slide}"
     alt="">`;
-    sliderContainer.appendChild(item)
+    sliderContainer.appendChild(item);
+
   })
   changeSlide(0)
   timer = setInterval(function () {
@@ -110,8 +112,9 @@ const changeSlide = (index) => {
 
   items[index].style.display = "block"
 }
-searchBtn.addEventListener('click', function () {
 
+// Event Listener (click)
+searchBtn.addEventListener('click', function () {
   const search = document.getElementById('search').value;
   if (search == '') {
     alert('Please Enter Your Image Name')
@@ -125,24 +128,25 @@ searchBtn.addEventListener('click', function () {
   }
 })
 
-
+// Event Listener (keypress)
 search.addEventListener("keypress", function (event) {
-  if (event.key == 'Enter') {
-    document.querySelector('.main').style.display = 'none';
-    clearInterval(timer);
-    const search = document.getElementById('search');
-    getImages(search.value)
-    sliders.length = 0;
-    search.value = '';
-  }
+  const search = document.getElementById('search').value;
+    if (event.key == 'Enter') {
+      document.querySelector('.main').style.display = 'none';
+      clearInterval(timer);
+      getImages(search)
+      sliders.length = 0;
+      search.value = '';
+    }
+   
 
 });
 
-
+//// Event Listener for duration
 sliderBtn.addEventListener('click', function () {
   const duration = document.getElementById('duration').value || 1000;
   if (duration < 0) {
-    alert('Not allowed negative value');
+    alert('Your Duration value negative');
 
   } else {
     createSlider();
@@ -150,3 +154,17 @@ sliderBtn.addEventListener('click', function () {
   }
 
 })
+// Loading spinner
+const loadingToggle = (show) => {
+  const loadingSpinner = document.getElementById('spinner');
+
+  if (show == true) {
+    loadingSpinner.classList.remove('d-none');
+
+  }
+  else if (show == false) {
+    loadingSpinner.classList.add('d-none');
+  }
+
+}
+

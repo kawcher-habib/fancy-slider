@@ -13,9 +13,10 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
     integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-    <!--google font-->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Truculenta&display=swap" rel="stylesheet">
-    <!--custom css-->
+  <!--google font-->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Truculenta&display=swap"
+    rel="stylesheet">
+  <!--custom css-->
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -27,7 +28,7 @@
         <input type="text" class="form-control" id="search" placeholder="nature">
       </div>
       <button type="button" id="search-btn" class="btn btn-primary mb-2">Search</button>
-      
+
       <div id="alert" class=""></div>
     </div>
     <section class="images mt-5">
@@ -42,6 +43,14 @@
 
       </div>
     </section>
+    <!-- spinner -->
+    <div id="spinner" class="text-center d-none ">
+      <button class="btn btn-primary" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="visually-hidden">Loading...</span>
+      </button>
+    </div>
+
     <!-- slider -->
     <div class="main">
       <section class="mt-5" id="sliders">
